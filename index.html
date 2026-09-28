@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventSupply | Classic Event Management</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="#dashboard">
+      <span class="brand-mark">ES</span>
+      <span><strong>EventSupply</strong><small>Event Material & Collaboration</small></span>
+    </a>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="mainNav">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#organizations">Organizations</a>
+      <a href="#customers">Customers</a>
+      <a href="#events">Events</a>
+      <a href="#materials">Materials</a>
+      <a href="#collaborations">Collaborations</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="dashboard" class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="ornament">EST. 2026 · EVENT SERVICES</div>
+      <h1>One place for every event, every material, every collaboration.</h1>
+      <p>Manage event organizations, customers, inventory and inter-organization supply requests in a refined, classic workspace.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#events">Create Event</a>
+        <a class="btn btn-outline" href="#materials">View Materials</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="seal">ES</div>
+      <h3>Event Operations</h3>
+      <p>Organize supplies for weddings, celebrations, corporate programs, college events, exhibitions and more.</p>
+      <div class="hero-rule"></div>
+      <span>CLASSIC · RELIABLE · ORGANIZED</span>
+    </div>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-heading">
+    <div><span class="eyebrow">OVERVIEW</span><h2>Your Operations at a Glance</h2></div>
+  </div>
+  <div class="stats">
+    <article class="stat-card"><span>Organizations</span><strong id="statOrganizations">0</strong></article>
+    <article class="stat-card"><span>Customers</span><strong id="statCustomers">0</strong></article>
+    <article class="stat-card"><span>Events</span><strong id="statEvents">0</strong></article>
+    <article class="stat-card"><span>Materials</span><strong id="statMaterials">0</strong></article>
+    <article class="stat-card"><span>Requests</span><strong id="statRequests">0</strong></article>
+    <article class="stat-card"><span>Collaborations</span><strong id="statCollaborations">0</strong></article>
+  </div>
+</section>
+
+<section id="organizations" class="container section">
+  <div class="section-heading">
+    <div><span class="eyebrow">NETWORK</span><h2>Event Organizations</h2><p>Keep a directory of all organizations working across your events.</p></div>
+    <button class="btn btn-dark" onclick="openModal('organizationModal')">+ Add Organization</button>
+  </div>
+  <div id="organizationList" class="card-grid"></div>
+</section>
+
+<section id="customers" class="container section alt-section">
+  <div class="section-heading">
+    <div><span class="eyebrow">CLIENTS</span><h2>Customers</h2><p>Maintain customer records and connect them to multiple events.</p></div>
+    <button class="btn btn-dark" onclick="openModal('customerModal')">+ Add Customer</button>
+  </div>
+  <div id="customerList" class="card-grid"></div>
+</section>
+
+<section id="events" class="container section">
+  <div class="section-heading">
+    <div><span class="eyebrow">EVENT REGISTER</span><h2>Events</h2><p>Wedding, birthday, corporate, college, exhibition, cultural and any other event.</p></div>
+    <button class="btn btn-gold-dark" onclick="openEventModal()">+ Create Event</button>
+  </div>
+  <div class="table-shell">
+    <table>
+      <thead><tr><th>Event</th><th>Type</th><th>Customer</th><th>Organization</th><th>Date</th><th>Status</th></tr></thead>
+      <tbody id="eventTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="materials" class="container section alt-section">
+  <div class="section-heading">
+    <div><span class="eyebrow">INVENTORY</span><h2>Material Catalogue</h2><p>Track chairs, tables, lighting, sound, stages, decorations and other supplies.</p></div>
+    <button class="btn btn-dark" onclick="openMaterialModal()">+ Add Material</button>
+  </div>
+  <div id="materialList" class="card-grid"></div>
+</section>
+
+<section id="requests" class="container section">
+  <div class="section-heading">
+    <div><span class="eyebrow">SUPPLY CONTROL</span><h2>Material Requests</h2><p>Record materials required for each event.</p></div>
+    <button class="btn btn-gold-dark" onclick="openRequestModal()">+ New Request</button>
+  </div>
+  <div class="table-shell">
+    <table>
+      <thead><tr><th>Event</th><th>Material</th><th>Quantity</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="requestTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="collaborations" class="container section alt-section">
+  <div class="section-heading">
+    <div><span class="eyebrow">PARTNERSHIPS</span><h2>Organization Collaborations</h2><p>One organization can request another organization to support a specific event or purpose.</p></div>
+    <button class="btn btn-dark" onclick="openCollaborationModal()">+ Collaboration</button>
+  </div>
+  <div class="table-shell">
+    <table>
+      <thead><tr><th>Event</th><th>Requesting</th><th>Collaborating</th><th>Purpose</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="collaborationTable"></tbody>
+    </table>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div><strong>EventSupply</strong><p>Classic event material and collaboration management.</p></div>
+    <div><span>EVENT SERVICES · MATERIALS · PARTNERSHIPS</span></div>
+  </div>
+</footer>
+
+<!-- Modals -->
+<div id="organizationModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('organizationModal')">×</button>
+  <span class="eyebrow">NEW RECORD</span><h2>Add Organization</h2>
+  <form onsubmit="addOrganization(event)">
+    <input id="orgName" placeholder="Organization name" required>
+    <input id="orgPhone" placeholder="Phone">
+    <input id="orgEmail" type="email" placeholder="Email">
+    <input id="orgAddress" placeholder="Address">
+    <button class="btn btn-dark">Save Organization</button>
+  </form>
+</div></div>
+
+<div id="customerModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('customerModal')">×</button>
+  <span class="eyebrow">NEW RECORD</span><h2>Add Customer</h2>
+  <form onsubmit="addCustomer(event)">
+    <input id="customerName" placeholder="Customer name" required>
+    <input id="customerPhone" placeholder="Phone">
+    <input id="customerEmail" type="email" placeholder="Email">
+    <input id="customerAddress" placeholder="Address">
+    <button class="btn btn-dark">Save Customer</button>
+  </form>
+</div></div>
+
+<div id="eventModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('eventModal')">×</button>
+  <span class="eyebrow">EVENT REGISTER</span><h2>Create Event</h2>
+  <form onsubmit="addEvent(event)">
+    <input id="eventName" placeholder="Event name" required>
+    <input id="eventType" placeholder="Event type — Wedding, Birthday, Corporate..." required>
+    <input id="eventDate" type="date">
+    <input id="eventLocation" placeholder="Location">
+    <select id="eventCustomer" required></select>
+    <select id="eventOrganization" required></select>
+    <select id="eventStatus"><option>Planning</option><option>Confirmed</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select>
+    <button class="btn btn-gold-dark">Create Event</button>
+  </form>
+</div></div>
+
+<div id="materialModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('materialModal')">×</button>
+  <span class="eyebrow">INVENTORY</span><h2>Add Material</h2>
+  <form onsubmit="addMaterial(event)">
+    <input id="materialName" placeholder="Material name" required>
+    <input id="materialCategory" placeholder="Category" required>
+    <input id="materialQuantity" type="number" min="0" placeholder="Quantity" required>
+    <input id="materialPrice" type="number" min="0" step="0.01" placeholder="Unit price">
+    <select id="materialOrganization" required></select>
+    <button class="btn btn-dark">Add Material</button>
+  </form>
+</div></div>
+
+<div id="requestModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('requestModal')">×</button>
+  <span class="eyebrow">SUPPLY REQUEST</span><h2>Request Material</h2>
+  <form onsubmit="addRequest(event)">
+    <select id="requestEvent" required></select>
+    <select id="requestMaterial" required></select>
+    <input id="requestQuantity" type="number" min="1" placeholder="Quantity" required>
+    <button class="btn btn-gold-dark">Create Request</button>
+  </form>
+</div></div>
+
+<div id="collaborationModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('collaborationModal')">×</button>
+  <span class="eyebrow">PARTNERSHIP</span><h2>Create Collaboration</h2>
+  <form onsubmit="addCollaboration(event)">
+    <select id="collabEvent" required></select>
+    <select id="collabRequesting" required></select>
+    <select id="collabPartner" required></select>
+    <input id="collabPurpose" placeholder="Purpose — e.g. LED screen supply" required>
+    <button class="btn btn-dark">Send Collaboration</button>
+  </form>
+</div></div>
+
+<div id="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
